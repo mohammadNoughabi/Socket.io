@@ -4,11 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Socket.IO chat app</title>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div>
-      <h1>Socket-io chat app</h1>
-    </div>
+    <div class="chat-header"><h1>Socket-io chat app</h1></div>
     <ul id="messages"></ul>
     <form id="form" action="">
       <input id="input" autocomplete="off" /><button>Send</button>
@@ -21,19 +20,31 @@
       const input = document.getElementById("input");
       const messages = document.getElementById("messages");
 
+      // Function to add a message to the list
+      const addMessage = (msg, isMine) => {
+        const item = document.createElement("li");
+        item.textContent = msg;
+        if (isMine) {
+          item.classList.add("my-message"); // Apply the 'my-message' class
+        }
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      };
+
+      // Handle form submission (MY message)
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        if (input.value) {
-          socket.emit("chat message", input.value);
+        const messageText = input.value.trim();
+        if (messageText) {
+          socket.emit("chat message", messageText);
+          addMessage(messageText, true); // Add MY message instantly
           input.value = "";
         }
       });
 
+      // Handle incoming messages (OTHER users' messages)
       socket.on("chat message", (msg) => {
-        const item = document.createElement("li");
-        item.textContent = msg;
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
+        addMessage(msg, false); // Add OTHER message
       });
     </script>
   </body>

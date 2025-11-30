@@ -1,50 +1,102 @@
-body {
-  margin: 0;
-  padding-bottom: 3rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-}
+/* Global and Body Styles */
+  body {
+    margin: 0;
+    padding-bottom: 3.5rem; /* Increased padding to accommodate the fixed footer */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f6f6f6; /* Light gray background for a modern feel */
+  }
 
-#form {
-  background: rgba(0, 0, 0, 0.15);
-  padding: 0.25rem;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  height: 3rem;
-  box-sizing: border-box;
-  backdrop-filter: blur(10px);
-}
-#input {
-  border: none;
-  padding: 0 1rem;
-  flex-grow: 1;
-  border-radius: 2rem;
-  margin: 0.25rem;
-}
-#input:focus {
-  outline: none;
-}
-#form > button {
-  background: #333;
-  border: none;
-  padding: 0 1rem;
-  margin: 0.25rem;
-  border-radius: 3px;
-  outline: none;
-  color: #fff;
-}
+  /* Chat Header */
+  .chat-header {
+    background: #007bff; /* Primary blue color */
+    color: white;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .chat-header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
 
-#messages {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-#messages > li {
-  padding: 0.5rem 1rem;
-}
-#messages > li:nth-child(odd) {
-  background: #efefef;
-}
+  /* Message List Styles */
+  #messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 10px 0;
+  }
+
+  /* Individual Message Bubble Styles */
+  #messages > li {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    border-radius: 20px;
+    position: relative;
+    word-wrap: break-word; /* Ensure long messages wrap */
+    clear: both; /* Clear floats for proper message stacking */
+  }
+
+  /* Style for OTHER users' messages (default) */
+  #messages > li {
+    background: #ffffff; /* White background */
+    color: #333;
+    float: left;
+    border-bottom-left-radius: 5px; /* Flatten one corner for a chat bubble look */
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Style for YOUR messages (requires 'my-message' class from step 2) */
+  #messages > li.my-message {
+    background: #007bff; /* Primary blue for your messages */
+    color: white;
+    float: right;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 5px; /* Flatten one corner */
+  }
+
+  /* Input Form (Fixed Footer) Styles */
+  #form {
+    background: #ffffff; /* White background for the input bar */
+    border-top: 1px solid #ddd;
+    padding: 0.5rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    height: 3rem;
+    box-sizing: border-box;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Input Field */
+  #input {
+    border: 1px solid #ccc;
+    padding: 0 1rem;
+    flex-grow: 1;
+    border-radius: 20px; /* Fully rounded input */
+    margin: 0 0.5rem 0 0;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  #input:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+
+  /* Send Button */
+  #form > button {
+    background: #007bff; /* Primary blue button */
+    border: none;
+    padding: 0 1rem;
+    border-radius: 20px;
+    outline: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  #form > button:hover {
+    background: #0056b3;
+  }

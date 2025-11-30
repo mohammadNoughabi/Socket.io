@@ -7,6 +7,8 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
+app.use(express.static(path.join(__dirname, "../client")));
+
 app.get("/", (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, "../client/index.html"));
 });
@@ -19,23 +21,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("chat message", (msg) => {
-    io.emit("chat message", msg);
+    socket.broadcast.emit("chat message", msg);
   });
 });
 
-io.on("connection", (socket) => {
-  // join the room named 'some room'
-  socket.join("some room");
-
-  // broadcast to all connected clients in the room
-  io.to("some room").emit("hello", "world");
-
-  // broadcast to all connected clients except those in the room
-  io.except("some room").emit("hello", "world");
-
-  // leave the room
-  socket.leave("some room");
-});
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
